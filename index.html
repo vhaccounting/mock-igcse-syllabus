@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock 3 Syllabus — Accounting 4AC1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0B0C; --paper:#FFF; --red:#E1121C; --red-txt:#B80D16; --red-dk:#FF616B;
+  --blue:#1552C9; --line:#E4E1DE; --muted:#6B6560; --wash:#F7F5F3; --wa:#25D366;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);font-family:'Manrope',system-ui,sans-serif;color:var(--ink);
+  line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:820px;margin:0 auto;background:var(--paper);min-height:100vh;padding-bottom:90px}
+
+/* header */
+header{background:var(--ink);color:#fff;padding:26px 18px 22px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;inset:0;opacity:.06;pointer-events:none;
+  background-image:radial-gradient(#fff 1px,transparent 1px);background-size:4px 4px}
+.brandbar{display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#B9B3AE;font-weight:800;margin-bottom:10px;flex-wrap:wrap}
+.brandbar .dot{width:6px;height:6px;background:var(--red);border-radius:50%}
+h1{font-family:'Anton',sans-serif;font-size:clamp(32px,9vw,52px);line-height:.95;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--red-dk)}
+.sub{margin-top:10px;color:#CFC9C4;font-size:14px;max-width:44ch;position:relative;z-index:2}
+
+.cd{position:relative;z-index:2;margin-top:18px;border:1px solid #3A3634;border-radius:14px;
+  background:#171516;padding:13px 14px}
+.cd .lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+  color:var(--red-dk);display:flex;align-items:center;gap:7px}
+.cd .lbl .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+.cdgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}
+.cdcell{background:#0B0B0C;border:1px solid #2C2A29;border-radius:9px;padding:8px 3px;text-align:center}
+.cdcell .v{font-family:'Anton',sans-serif;font-size:clamp(20px,6.5vw,28px);line-height:1;color:#fff}
+.cdcell .u{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#8E8884;font-weight:800;margin-top:4px}
+.cdwhen{margin-top:9px;font-size:11.5px;color:#B9B3AE;font-family:'JetBrains Mono',monospace}
+
+/* must-score banner */
+.must{background:var(--red);color:#fff;padding:16px 18px 18px}
+.must h3{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:17px}
+.must p{font-size:13px;color:#FFE2E4;margin-top:4px}
+.must ul{list-style:none;margin-top:11px;display:grid;gap:7px}
+@media(min-width:600px){.must ul{grid-template-columns:repeat(3,1fr)}}
+.must li{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.3);border-radius:9px;
+  padding:10px 12px;font-size:13.5px;font-weight:800}
+.must li span{display:block;font-weight:600;font-size:11px;color:#FFD2D5;margin-top:2px;
+  font-family:'JetBrains Mono',monospace}
+
+.notice{background:var(--ink);color:#fff;padding:12px 18px;font-size:13px;font-weight:800;
+  display:flex;gap:9px;align-items:center;border-top:1px solid #2C2A29}
+.notice svg{color:var(--red-dk);flex:0 0 auto}
+
+/* tabs */
+nav{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr}
+nav button{min-height:54px;background:none;border:0;border-bottom:3px solid transparent;cursor:pointer;
+  font:800 13px/1.2 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+nav button span{display:block;font-weight:600;font-size:10.5px;color:#9A938E;margin-top:3px;text-transform:none;letter-spacing:0}
+nav button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--red)}
+nav button[aria-selected="true"] span{color:var(--red-txt)}
+nav button:focus-visible{outline:2px solid var(--red);outline-offset:-3px}
+
+main{padding:20px 16px 40px}
+.panel{display:none}
+.panel.on{display:block}
+
+h2{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(20px,5.4vw,27px);line-height:1.05}
+.lede{color:var(--muted);font-size:13.5px;margin:5px 0 18px;max-width:52ch}
+
+/* topic cards */
+.topic{border:1px solid var(--line);border-radius:13px;margin-bottom:11px;overflow:hidden}
+.topic.key{border:2px solid var(--red)}
+.topic>summary{list-style:none;cursor:pointer;padding:15px;display:flex;gap:12px;align-items:flex-start;
+  min-height:56px;background:var(--wash)}
+.topic>summary::-webkit-details-marker{display:none}
+.topic>summary:focus-visible{outline:2px solid var(--red);outline-offset:-3px}
+.topic[open]>summary{background:var(--ink);color:#fff;border-bottom:1px solid var(--line)}
+.topic[open]>summary .meta{color:#B9B3AE}
+.topic[open]>summary .no{background:var(--red)}
+.no{flex:0 0 auto;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11.5px;
+  background:var(--ink);color:#fff;border-radius:6px;padding:6px 9px}
+.tbody{flex:1 1 auto;min-width:0}
+.tname{font-weight:800;font-size:16px;line-height:1.25}
+.meta{font-size:11.5px;color:var(--muted);margin-top:3px;font-family:'JetBrains Mono',monospace}
+.badge{display:inline-block;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 9px;margin-top:7px}
+.chev{flex:0 0 auto;color:var(--muted);font-size:16px;transition:transform .2s;margin-top:3px}
+.topic[open] .chev{transform:rotate(180deg);color:#fff}
+@media (prefers-reduced-motion:reduce){.chev{transition:none}}
+
+.inner{padding:16px 15px}
+.task{font-size:14.5px;font-weight:800;margin-bottom:14px}
+.task span{display:block;font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--red-txt);margin-bottom:4px}
+
+/* page reference blocks — the main thing */
+.pages{display:grid;gap:9px}
+.page{display:flex;align-items:center;gap:14px;border-radius:11px;padding:12px 14px}
+.page.theory{background:#FDF2F2;border:1px solid #F3C9CC}
+.page.format{background:#F1F5FD;border:1px solid #C3D2F1}
+.page .n{flex:0 0 auto;min-width:104px}
+.page .n em{display:block;font-style:normal;font:800 9.5px/1 'Manrope',sans-serif;
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+.page.theory .n em{color:var(--red-txt)}
+.page.format .n em{color:var(--blue)}
+.page .n b{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.02em;line-height:1}
+.page.theory .n b{color:var(--red-txt)}
+.page.format .n b{color:var(--blue)}
+.page p{font-size:13px;color:var(--ink);min-width:0}
+
+.warn{margin-top:14px;border-left:3px solid var(--red);background:#FDF2F2;padding:10px 12px;
+  border-radius:0 9px 9px 0;font-size:13px}
+.warn b{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red-txt);margin-bottom:3px;font-weight:800}
+
+.rule{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:var(--wash);
+  border-radius:9px;padding:11px 13px;margin-top:14px}
+.rule div+div{margin-top:6px}
+.rule b{color:var(--red-txt)}
+
+/* written question */
+.wq{margin-top:16px;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden}
+.wqh{background:var(--ink);color:#fff;padding:12px 14px}
+.wqh em{display:block;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--red-dk);margin-bottom:5px;font-weight:700}
+.wqh p{font-size:14px;font-weight:800;line-height:1.4}
+.wqa{padding:13px 14px}
+.wqa>div{padding-left:12px;border-left:3px solid var(--line)}
+.wqa>div+div{margin-top:12px}
+.wqa>div.f{border-left-color:var(--blue)}
+.wqa>div.a{border-left-color:var(--red)}
+.wqa>div.c{border-left-color:var(--ink)}
+.wqa em{display:block;font-style:normal;font:800 9.5px/1 'Manrope',sans-serif;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.wqa .f em{color:var(--blue)}
+.wqa .a em{color:var(--red-txt)}
+.wqa p{font-size:13.5px}
+
+/* tables */
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:14px;
+  border:1px solid var(--line);border-radius:10px}
+.tblwrap+.tblwrap{margin-top:10px}
+table{border-collapse:collapse;width:100%;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+table.t6{min-width:430px}
+table.t9{min-width:650px}
+caption{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:13px;padding:9px 11px;
+  text-align:left;background:var(--ink);color:#fff}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--wash);font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+td.n2{text-align:right;white-space:nowrap;color:var(--muted)}
+.dr{color:var(--blue);font-weight:700}
+.cr{color:var(--red-txt);font-weight:700}
+tr.tot td{border-top:2px solid var(--ink);border-bottom:3px double var(--ink);font-weight:700}
+tr.hl td{background:#FFFBEB}
+
+.concepts{margin-top:18px;border:2px dashed var(--line);border-radius:12px;padding:14px}
+.concepts b{display:block;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:14px;margin-bottom:5px}
+.concepts p{font-size:13px;color:var(--muted)}
+.concepts strong{color:var(--red-txt)}
+
+.wa{position:fixed;right:14px;bottom:14px;z-index:60;display:inline-flex;align-items:center;gap:9px;
+  background:var(--wa);color:#fff;text-decoration:none;font:800 13px/1 'Manrope',sans-serif;
+  padding:14px 17px;border-radius:999px;box-shadow:0 6px 22px rgba(0,0,0,.32);min-height:48px}
+
+footer{background:var(--ink);color:#8E8884;padding:24px 18px 36px;font-size:12.5px;text-align:center}
+footer b{color:#fff;font-family:'Anton',sans-serif;font-size:15px;display:block;margin-bottom:6px;text-transform:uppercase}
+footer a{color:var(--red-dk);text-decoration:none}
+
+@media print{
+  body{background:#fff}
+  nav,.wa,.cd,.chev,header::after{display:none}
+  .panel{display:block!important}
+  .topic>summary{background:#fff;color:#000;border-bottom:1px solid #999}
+  .no,.topic[open]>summary .no{background:#000}
+  header,footer,.notice,.must{background:#fff;color:#000;border:0}
+  .must p,.must li span,.must li{color:#000;background:#fff;border:1px solid #000}
+  h1,.sub{color:#000}
+  .wqh{background:#fff;color:#000;border-bottom:1px solid #000}
+  .wqh em{color:#000}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brandbar"><span class="dot"></span>Accounting by TAK · Vertical Horizon<span class="dot"></span>Edexcel 4AC1</div>
+  <h1>Mock 3<br><em>Syllabus</em></h1>
+  <p class="sub">Every topic in the mock, and the exact pages to study it from. Open a topic, go to the page, learn the format.</p>
+
+  <div class="cd">
+    <div class="lbl"><span class="pulse"></span>Mock 3 Countdown</div>
+    <div class="cdgrid">
+      <div class="cdcell"><div class="v" id="cd-d">--</div><div class="u">Days</div></div>
+      <div class="cdcell"><div class="v" id="cd-h">--</div><div class="u">Hours</div></div>
+      <div class="cdcell"><div class="v" id="cd-m">--</div><div class="u">Mins</div></div>
+      <div class="cdcell"><div class="v" id="cd-s">--</div><div class="u">Secs</div></div>
+    </div>
+    <div class="cdwhen" id="cd-when">Friday · 3:00 PM</div>
+  </div>
+</header>
+
+<div class="must">
+  <h3>Full marks expected here</h3>
+  <p>These three are pure format. Learn the layout and the marks are yours.</p>
+  <ul>
+    <li>Control Accounts<span>Paper 1 · 20 marks</span></li>
+    <li>Petty Cash Book<span>Paper 1 · 15 marks</span></li>
+    <li>Adjustments<span>Paper 2 · 25 marks</span></li>
+  </ul>
+</div>
+
+<div class="notice">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+  Next extra class — Monday, 3:30 PM
+</div>
+
+<nav role="tablist">
+  <button role="tab" aria-selected="true" data-t="p1">Paper 1<span>2 hours · 100 marks</span></button>
+  <button role="tab" aria-selected="false" data-t="p2">Paper 2<span>1 hr 15 · 50 marks</span></button>
+</nav>
+
+<main>
+
+<!-- ================ PAPER 1 ================ -->
+<section class="panel on" id="p1">
+  <h2>Paper 1 — Bookkeeping</h2>
+  <p class="lede">Eight topics. Tap one to see what to prepare and which pages to study.</p>
+
+  <details class="topic">
+    <summary><span class="no">01</span><div class="tbody"><div class="tname">Multiple Choice</div><div class="meta">10 marks</div></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must do</span>Answer ten one-mark questions on the basics.</p>
+      <div class="pages">
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Pages 10–15</b></div><p>Assets and liabilities, working capital, discounts, books of original entry, types of error.</p></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="no">02</span><div class="tbody"><div class="tname">The Journal</div><div class="meta">5 marks</div></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must do</span>State the account to debit and the account to credit.</p>
+      <div class="pages">
+        <div class="page format"><div class="n"><em>Format Book</em><b>Pages 1–2</b></div><p>All 16 journal entries. Learn every one.</p></div>
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 11</b></div><p>When the journal is used.</p></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="no">03</span><div class="tbody"><div class="tname">Source Documents</div><div class="meta">5 marks</div></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must do</span>Name the document used for each transaction.</p>
+      <div class="pages">
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 11</b></div><p>Every document, the day book it goes to, and the ledger it is posted to.</p></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="topic key">
+    <summary><span class="no">04</span><div class="tbody"><div class="tname">Control Accounts</div><div class="meta">20 marks</div><span class="badge">Full marks expected</span></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must do</span>Prepare the trade receivables and trade payables control accounts.</p>
+      <div class="pages">
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 21</b></div><p>Why we use control accounts, and why a balance can appear on both sides.</p></div>
+        <div class="page format"><div class="n"><em>Format Book</em><b>Page 14</b></div><p>Both accounts, shown below as well.</p></div>
+      </div>
+
+      <div class="tblwrap"><table class="t6">
+        <caption>Trade Receivables Control A/C</caption>
+        <thead><tr><th>Details</th><th class="n2">$</th><th>Details</th><th class="n2">$</th></tr></thead>
+        <tbody>
+          <tr><td class="dr">Balance b/d</td><td class="n2">XXX</td><td class="cr">Balance b/d <i>(if any)</i></td><td class="n2">X</td></tr>
+          <tr><td class="dr">Sales (credit)</td><td class="n2">XXX</td><td class="cr">Cash book / Bank</td><td class="n2">XXX</td></tr>
+          <tr><td class="dr">Dishonoured cheque</td><td class="n2">X</td><td class="cr">Discount allowed</td><td class="n2">X</td></tr>
+          <tr><td class="dr">Refund to customer</td><td class="n2">X</td><td class="cr">Returns inwards</td><td class="n2">X</td></tr>
+          <tr><td class="dr">Interest charged</td><td class="n2">X</td><td class="cr">Irrecoverable debts</td><td class="n2">X</td></tr>
+          <tr class="hl"><td></td><td class="n2"></td><td class="cr">Contra</td><td class="n2">X</td></tr>
+          <tr><td></td><td class="n2"></td><td>Balance c/d</td><td class="n2">XXX</td></tr>
+          <tr class="tot"><td></td><td class="n2">XXX</td><td></td><td class="n2">XXX</td></tr>
+          <tr><td class="dr">Balance b/d</td><td class="n2">XXX</td><td></td><td class="n2"></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="tblwrap"><table class="t6">
+        <caption>Trade Payables Control A/C</caption>
+        <thead><tr><th>Details</th><th class="n2">$</th><th>Details</th><th class="n2">$</th></tr></thead>
+        <tbody>
+          <tr><td class="dr">Balance b/d <i>(if any)</i></td><td class="n2">X</td><td class="cr">Balance b/d</td><td class="n2">XXX</td></tr>
+          <tr><td class="dr">Cash book / Bank</td><td class="n2">XXX</td><td class="cr">Purchases (credit)</td><td class="n2">XXX</td></tr>
+          <tr><td class="dr">Discount received</td><td class="n2">X</td><td class="cr">Dishonoured cheque</td><td class="n2">X</td></tr>
+          <tr><td class="dr">Returns outwards</td><td class="n2">X</td><td class="cr">Refund from supplier</td><td class="n2">X</td></tr>
+          <tr class="hl"><td class="dr">Contra</td><td class="n2">X</td><td class="cr">Interest charged by supplier</td><td class="n2">X</td></tr>
+          <tr><td>Balance c/d</td><td class="n2">XXX</td><td></td><td class="n2"></td></tr>
+          <tr class="tot"><td></td><td class="n2">XXX</td><td></td><td class="n2">XXX</td></tr>
+          <tr><td></td><td class="n2"></td><td class="cr">Balance b/d</td><td class="n2">XXX</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="warn"><b>Watch out</b>The contra goes on <b>opposite sides</b> — credit in receivables, debit in payables. Cash sales, cash purchases and the provision for irrecoverable debts never appear.</div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="no">05</span><div class="tbody"><div class="tname">Bank Reconciliation</div><div class="meta">15 marks</div></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must do</span>Prepare a bank reconciliation statement, then answer a written question.</p>
+      <div class="pages">
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 23</b></div><p>Unpresented cheques, outstanding lodgements, bank charges, standing orders.</p></div>
+        <div class="page format"><div class="n"><em>Format Book</em><b>Page __</b></div><p>Bank reconciliation statement layout.</p></div>
+      </div>
+
+      <div class="wq">
+        <div class="wqh"><em>Written question · 5 marks</em><p>Discuss whether the business should continue to prepare a monthly bank reconciliation statement.</p></div>
+        <div class="wqa">
+          <div class="f"><em>Say this for</em><p>It confirms the cash book agrees with the bank statement, <b>so</b> the cash at bank figure in the statement of financial position can be trusted.</p></div>
+          <div class="a"><em>Say this against</em><p>Doing it every month takes time, <b>so</b> a small business owner could spend that time trading instead, especially as online banking shows the balance any time.</p></div>
+          <div class="c"><em>Finish with</em><p>He should continue, because it is his main check against error and fraud in the cash book.</p></div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="topic key">
+    <summary><span class="no">06</span><div class="tbody"><div class="tname">Petty Cash Book</div><div class="meta">15 marks</div><span class="badge">Full marks expected</span></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must do</span>Enter the payments, total the analysis columns, balance the book, then answer a written question.</p>
+      <div class="pages">
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 11</b></div><p>How the imprest system works.</p></div>
+      </div>
+
+      <div class="tblwrap"><table class="t9">
+        <caption>Petty Cash Book</caption>
+        <thead><tr><th class="n2">Receipts</th><th>Date</th><th>Details</th><th class="n2">Total</th><th class="n2">Postage</th><th class="n2">Stationery</th><th class="n2">Travel</th><th class="n2">Sundry</th><th class="n2">Ledger</th></tr></thead>
+        <tbody>
+          <tr><td class="n2">X</td><td>01/__</td><td class="dr">Balance b/d</td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td></tr>
+          <tr><td class="n2">XXX</td><td>01/__</td><td class="dr">Cash book / Bank</td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td></tr>
+          <tr><td class="n2"></td><td>__/__</td><td class="cr">Each payment, in date order</td><td class="n2">X</td><td class="n2">X</td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td></tr>
+          <tr><td class="n2"></td><td>__/__</td><td class="cr">…</td><td class="n2">X</td><td class="n2"></td><td class="n2">X</td><td class="n2"></td><td class="n2"></td><td class="n2"></td></tr>
+          <tr><td class="n2"></td><td>__/__</td><td class="cr">Payment to a credit supplier</td><td class="n2">X</td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2">X</td></tr>
+          <tr class="hl"><td class="n2"></td><td>31/__</td><td><b>Totals</b></td><td class="n2">XXX</td><td class="n2">XX</td><td class="n2">XX</td><td class="n2">XX</td><td class="n2">XX</td><td class="n2">XX</td></tr>
+          <tr><td class="n2"></td><td>31/__</td><td>Balance c/d</td><td class="n2">XX</td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td></tr>
+          <tr class="tot"><td class="n2">XXX</td><td></td><td></td><td class="n2">XXX</td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td></tr>
+          <tr><td class="n2">XX</td><td>01/__</td><td class="dr">Balance b/d</td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td><td class="n2"></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="rule">
+        <div>Cash received = <b>Imprest − balance in hand</b></div>
+        <div>Balance c/d = <b>Imprest − total payments</b></div>
+      </div>
+
+      <div class="warn"><b>Watch out</b>Each analysis column total earns its own mark, and they must add across to the total payments column. A payment to a named supplier goes in the <b>Ledger</b> column, not Sundry.</div>
+
+      <div class="wq">
+        <div class="wqh"><em>Written question · 5 marks</em><p>Discuss whether the business should continue to use the imprest system for its petty cash book.</p></div>
+        <div class="wqa">
+          <div class="f"><em>Say this for</em><p>The float is restored to a fixed amount each period, <b>so</b> the cash at risk is limited and cash in hand plus vouchers must always equal the float — a clear check on the petty cashier.</p></div>
+          <div class="a"><em>Say this against</em><p>If the float is set too low the cashier runs out of money early, <b>so</b> she must ask for extra cash, which creates more paperwork.</p></div>
+          <div class="c"><em>Finish with</em><p>She should keep the imprest system, as long as the float is reviewed and set at a sensible amount.</p></div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="no">07</span><div class="tbody"><div class="tname">Suspense &amp; Correction of Errors</div><div class="meta">15 marks</div></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must do</span>Write journal entries to correct the errors, then prepare the suspense account.</p>
+      <div class="pages">
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 22</b></div><p>The six errors a trial balance cannot find, and the errors that make it disagree.</p></div>
+        <div class="page format"><div class="n"><em>Format Book</em><b>Pages 1–2</b></div><p>Journal layout and the suspense account.</p></div>
+      </div>
+      <div class="rule">
+        <div>Ask of every error: <b>were both a debit and a credit made?</b></div>
+        <div>Yes → no suspense entry. No → suspense is used.</div>
+      </div>
+    </div>
+  </details>
+
+  <details class="topic">
+    <summary><span class="no">08</span><div class="tbody"><div class="tname">Depreciation &amp; Disposal</div><div class="meta">15 marks</div></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must do</span>Calculate the carrying value, prepare the disposal account, then answer a written question.</p>
+      <div class="pages">
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 19</b></div><p>Why we depreciate, and the two methods compared.</p></div>
+        <div class="page format"><div class="n"><em>Format Book</em><b>Pages 15–16</b></div><p>Provision for depreciation account, disposal account and the formulas.</p></div>
+      </div>
+      <div class="warn"><b>Watch out</b>Read the depreciation policy line every single time. If the buyer pays in two different ways, show a separate entry for each.</div>
+
+      <div class="wq">
+        <div class="wqh"><em>Written question · 5 marks</em><p>Discuss whether the business should change from the reducing balance method to the straight-line method.</p></div>
+        <div class="wqa">
+          <div class="f"><em>Say this for</em><p>Straight line spreads the cost evenly and is simpler to work out, <b>so</b> it suits an asset used at about the same rate every year.</p></div>
+          <div class="a"><em>Say this against</em><p>Changing method breaks the consistency concept, <b>and</b> a vehicle loses most value in its early years, <b>so</b> reducing balance matches the charge to the benefit received.</p></div>
+          <div class="c"><em>Finish with</em><p>She should not change, unless the way the asset is used has genuinely changed — and then the change must be disclosed.</p></div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="concepts">
+    <b>Accounting Concepts</b>
+    <p>Needed in both papers. <strong>Theory Book, Pages 15–17.</strong> Learn all ten well enough to name one and explain it in a sentence.</p>
+  </div>
+</section>
+
+<!-- ================ PAPER 2 ================ -->
+<section class="panel" id="p2">
+  <h2>Paper 2 — Financial Statements</h2>
+  <p class="lede">Only two topics. Both are long answers where the layout carries the marks.</p>
+
+  <details class="topic">
+    <summary><span class="no">01</span><div class="tbody"><div class="tname">Manufacturing Business</div><div class="meta">25 marks</div></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must prepare</span>Manufacturing account · Income statement (trading section)</p>
+      <div class="pages">
+        <div class="page format"><div class="n"><em>Format Book</em><b>Page 8</b></div><p>Manufacturing account.</p></div>
+        <div class="page format"><div class="n"><em>Format Book</em><b>Pages 4 &amp; 9</b></div><p>Income statement, trading section.</p></div>
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 28</b></div><p>Direct and indirect costs, and how shared costs are split.</p></div>
+      </div>
+      <div class="warn"><b>Watch out</b>Office costs, office depreciation and delivery to customers stay <b>out</b> of the manufacturing account. Remove any prepayment before you split a shared cost.</div>
+
+      <div class="wq">
+        <div class="wqh"><em>Written question · 5 marks</em><p>Explain, referring to a relevant accounting concept, whether the owner needs to keep a record of goods or cash taken for personal use.</p></div>
+        <div class="wqa">
+          <div class="f"><em>Name the concept</em><p>Not recording them breaks the <b>business entity concept</b>, which says the business is completely separate from its owner.</p></div>
+          <div class="a"><em>Give the effect</em><p>Without a record, cost of materials used and cost of sales are too high, <b>so</b> production cost and gross profit are too low and the statements are not true and fair.</p></div>
+          <div class="c"><em>Finish with</em><p>He should keep a full record of all drawings.</p></div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="topic key">
+    <summary><span class="no">02</span><div class="tbody"><div class="tname">Adjustments</div><div class="meta">25 marks</div><span class="badge">Full marks expected</span></div><span class="chev">▾</span></summary>
+    <div class="inner">
+      <p class="task"><span>What you must prepare</span>Income statement (profit and loss section) · Statement of financial position</p>
+      <div class="pages">
+        <div class="page format"><div class="n"><em>Format Book</em><b>Pages 6–7</b></div><p>Income statement, profit and loss section.</p></div>
+        <div class="page format"><div class="n"><em>Format Book</em><b>Pages 5 &amp; 21</b></div><p>Statement of financial position.</p></div>
+        <div class="page theory"><div class="n"><em>Theory Book</em><b>Page 20</b></div><p>Accruals, prepayments and the provision for irrecoverable debts.</p></div>
+      </div>
+      <div class="rule">
+        <div>Expense = <b>Paid + owing at end − owing at start</b></div>
+        <div>Expense = <b>Paid − prepaid at end + prepaid at start</b></div>
+        <div>Provision = <b>Receivables after write-off × %</b></div>
+      </div>
+      <div class="warn"><b>Watch out</b>Only the <b>change</b> in the provision goes in the income statement — the full provision goes in the statement of financial position. If your totals do not balance, you lose the last mark.</div>
+
+      <div class="wq">
+        <div class="wqh"><em>Written question · 5 marks</em><p>Advise, referring to two accounting concepts, whether closing inventory should be valued at selling price instead of cost.</p></div>
+        <div class="wqa">
+          <div class="f"><em>First concept</em><p>It would break <b>prudence</b>, which says profit must not be overstated and assets must not be valued above what can be recovered.</p></div>
+          <div class="a"><em>Second concept</em><p>It would also break <b>realisation</b>, because profit would be counted before the goods were actually sold.</p></div>
+          <div class="c"><em>Finish with</em><p>She should not do it. Inventory is valued at the lower of cost and net realisable value.</p></div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="concepts">
+    <b>How written answers score</b>
+    <p>Two points <strong>for</strong>, two points <strong>against</strong>, one <strong>conclusion</strong> that picks a side. Every point must carry on with "…so…" or "…which means…" — one-word answers score half.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <b>Accounting by TAK · Vertical Horizon</b>
+  Edexcel International GCSE (9–1) &amp; O'Level Accounting — 4AC1<br>
+  Next extra class: Monday 3:30 PM<br>
+  <a href="https://www.vhaccounting.jimdo.com">www.vhaccounting.jimdo.com</a>
+</footer>
+
+</div>
+
+<a class="wa" href="https://wa.me/8801978580098" target="_blank" rel="noopener" aria-label="Message on WhatsApp">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97.99-3.62-.23-.37a9.78 9.78 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.82-9.8 2.62 0 5.08 1.03 6.93 2.88a9.74 9.74 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.49A11.8 11.8 0 0 0 12.05 0C5.5 0 .18 5.32.18 11.86c0 2.09.55 4.13 1.59 5.93L.08 24l6.35-1.66a11.85 11.85 0 0 0 5.66 1.44h.01c6.54 0 11.86-5.32 11.86-11.86 0-3.17-1.23-6.15-3.47-8.39"/></svg>
+  <span>WhatsApp</span>
+</a>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('nav button'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  tabs.forEach(function(b){
+    b.addEventListener('click',function(){
+      tabs.forEach(function(x){x.setAttribute('aria-selected','false')});
+      panels.forEach(function(p){p.classList.remove('on')});
+      b.setAttribute('aria-selected','true');
+      document.getElementById(b.dataset.t).classList.add('on');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  document.querySelectorAll('details.topic').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(!d.open) return;
+      d.parentElement.querySelectorAll('details.topic').forEach(function(o){ if(o!==d) o.open=false; });
+    });
+  });
+
+  function nextFriday3pm(){
+    var n=new Date();
+    var t=new Date(n.getFullYear(),n.getMonth(),n.getDate(),15,0,0,0);
+    t.setDate(t.getDate()+((5-t.getDay()+7)%7));
+    if(t<=n) t.setDate(t.getDate()+7);
+    return t;
+  }
+  var target=nextFriday3pm();
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('cd-when').textContent='Friday '+target.getDate()+' '+MON[target.getMonth()]+' · 3:00 PM';
+  function pad(v){return v<10?'0'+v:''+v}
+  function tick(){
+    var ms=target-new Date();
+    if(ms<=0){
+      ['d','h','m','s'].forEach(function(k){document.getElementById('cd-'+k).textContent='00'});
+      document.getElementById('cd-when').textContent='Mock 3 is underway — good luck!';
+      return;
+    }
+    var s=Math.floor(ms/1000);
+    document.getElementById('cd-d').textContent=pad(Math.floor(s/86400));
+    document.getElementById('cd-h').textContent=pad(Math.floor(s%86400/3600));
+    document.getElementById('cd-m').textContent=pad(Math.floor(s%3600/60));
+    document.getElementById('cd-s').textContent=pad(s%60);
+  }
+  tick(); setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>
