@@ -1,1 +1,5 @@
 .DS_Store
+
+# Internal teacher dashboard: contains student and parent phone numbers.
+# Must never reach this public repo.
+Marksheet/
