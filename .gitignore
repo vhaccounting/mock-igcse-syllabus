@@ -3,3 +3,7 @@
 # Internal teacher dashboard: contains student and parent phone numbers.
 # Must never reach this public repo.
 Marksheet/
+
+# Result sheet: pulled from the public site while the spreadsheet is
+# world-readable. Returns as an access-controlled Apps Script app.
+may-session-results/
